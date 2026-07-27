@@ -6,9 +6,9 @@ import {
 } from "@/lib/excel/employees.service";
 
 type Params = {
-  params: Promise<{
+  params: {
     id: string;
-  }>;
+  };
 };
 
 /**
@@ -19,12 +19,12 @@ export async function GET(
   { params }: Params,
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
 
     if (!id) {
       return NextResponse.json(
         { message: "Employee id is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -33,7 +33,7 @@ export async function GET(
     if (!employee) {
       return NextResponse.json(
         { message: "Employee not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -46,7 +46,7 @@ export async function GET(
 
     return NextResponse.json(
       { message: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -59,12 +59,12 @@ export async function PUT(
   { params }: Params,
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
 
     if (!id) {
       return NextResponse.json(
         { message: "Employee id is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -87,7 +87,7 @@ export async function PUT(
     if (!updatedEmployee) {
       return NextResponse.json(
         { message: "Employee not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -100,7 +100,7 @@ export async function PUT(
 
     return NextResponse.json(
       { message: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -113,12 +113,12 @@ export async function DELETE(
   { params }: Params,
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
 
     if (!id) {
       return NextResponse.json(
         { message: "Employee id is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -127,7 +127,7 @@ export async function DELETE(
     if (!employee) {
       return NextResponse.json(
         { message: "Employee not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -136,7 +136,7 @@ export async function DELETE(
     if (!deleted) {
       return NextResponse.json(
         { message: "Failed to delete employee" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -148,7 +148,7 @@ export async function DELETE(
 
     return NextResponse.json(
       { message: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
