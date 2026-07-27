@@ -8,8 +8,6 @@ A complete HR platform designed to simplify employee management, leave requests,
 
 ---
 
-<img src="./screenshots/dashboard.png" width="100%"/>
-
 <br>
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=nextdotjs)
@@ -247,4 +245,4 @@ Full Stack Developer
 
 ---
 
-⭐ If you found this project useful, please leave a Star.
+⭐ If you found this project useful, please Follow me on linkedin for more .
