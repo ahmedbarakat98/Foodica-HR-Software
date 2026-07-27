@@ -1,38 +1,248 @@
-# Foodica HR
+<div align="center">
 
-Lightweight HR web application for Foodica.
+# 🏢 HR FOODICA
 
-## Core decisions
+### Modern Human Resources Management System
 
-- Google Sheets is the primary data source.
-- Excel is used for import/export/backup only.
-- Arabic/English UI with RTL/LTR switching.
-- Roles: Admin, HR, Employee.
-- Employee login: Employee Code + Password.
-- Admin/HR login: Username + Password.
-- High performance first: table-first UI, side-panel editing, batch writes, lazy charts.
+A complete HR platform designed to simplify employee management, leave requests, HR analytics, and administrative operations through a clean, responsive, and modern dashboard.
 
-## Setup
+---
+
+<br>
+
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=nextdotjs)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-Cyan?style=for-the-badge&logo=tailwindcss)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql)
+
+</div>
+
+---
+
+# ✨ Overview
+
+HR FOODICA is a full-stack Human Resources Management System developed to improve HR workflows and provide real-time insights into workforce operations.
+
+The application focuses on performance, scalability, user experience, and clean UI while supporting both Arabic (RTL) and English (LTR).
+
+---
+
+# 🚀 Features
+
+## 📊 Dashboard
+
+- Employee Statistics
+- Active Employees
+- Former Employees
+- Turnover Rate
+- Department Analytics
+- Export Reports
+
+---
+
+## 👥 Employee Management
+
+- Add Employee
+- Edit Employee
+- Delete Employee
+- Search Employees
+- Department Assignment
+- Job Titles
+- Employee Profile
+
+---
+
+## 📂 Former Employees
+
+- Employee Archive
+- Resignation Records
+- Employment History
+
+---
+
+## 🏖 Leave Management
+
+- Leave Requests
+- Leave Balance
+- Leave History
+- HR Approval
+
+---
+
+## 🌐 Localization
+
+- Arabic (RTL)
+- English (LTR)
+
+---
+
+## 🔒 Security
+
+- Authentication
+- Protected Routes
+- Server Validation
+- Prisma ORM
+- Secure PostgreSQL Database
+
+---
+
+# 🛠 Tech Stack
+
+| Category | Technologies |
+|----------|--------------|
+| Frontend | Next.js 16, React, TypeScript |
+| Styling | Tailwind CSS |
+| Backend | Next.js API Routes |
+| Database | Excel |
+| Authentication | NextAuth |
+| Forms | React Hook Form |
+| Localization | Next-Intl |
+
+---
+
+# 📱 Responsive Design
+
+✅ Desktop
+
+✅ Tablet
+
+✅ Mobile
+
+---
+
+# 🎨 UI Design
+
+Modern Premium Dashboard
+
+Dark Theme
+
+Gold Accent Color
+
+Smooth Animations
+
+Glass Cards
+
+RTL Support
+
+Fully Responsive
+
+---
+
+# 📂 Folder Structure
+
+```
+app/
+components/
+hooks/
+lib/
+prisma/
+public/
+types/
+middleware.ts
+```
+
+---
+
+# 📸 Screenshots
+
+## Dashboard
+
+<img src="./screenshots/dashboard.png"/>
+
+---
+
+## Employees
+
+<img src="./screenshots/employees.png"/>
+
+---
+
+## Leave Management
+
+<img src="./screenshots/leaves.png"/>
+
+---
+
+## Former Employees
+
+<img src="./screenshots/former-employees.png"/>
+
+---
+
+# ⚙ Installation
 
 ```bash
+git clone https://github.com/your-username/hr-foodica.git
+
+cd hr-foodica
+
 npm install
-cp .env.example .env.local
+
 npm run dev
 ```
 
-Fill Google Sheets credentials in `.env.local`.
+---
 
-## Google Sheets tabs expected
+# Environment Variables
 
-- Employees_Current
-- Employees_Former
-- Users
-- Roles
-- FieldSchema
-- FieldOptions
-- LeaveTypes
-- LeaveRecords
-- LeavePolicies
-- ManagerScopes
-- Settings
-- AuditLog_Lite
+```env
+DATABASE_URL=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=
+```
+
+---
+
+# Roadmap
+
+- Attendance Module
+- Payroll
+- Performance Evaluation
+- Email Notifications
+- Calendar Integration
+- Fingerprint Devices
+- Charts
+- HR Reports
+- Documents Management
+
+---
+
+# Performance
+
+⚡ Server Components
+
+⚡ Optimized Rendering
+
+⚡ Lazy Loading
+
+⚡ Fast Navigation
+
+⚡ Optimized Database Queries
+
+---
+
+# Built With
+
+❤️ Next.js
+
+⚡ TypeScript
+
+🗄 PostgreSQL
+
+🔥 Prisma
+
+🎨 Tailwind CSS
+
+---
+
+# Author
+
+Ahmed Barakat
+
+Full Stack Developer
+
+---
+
+⭐ If you found this project useful, please Follow me on linkedin for more .
