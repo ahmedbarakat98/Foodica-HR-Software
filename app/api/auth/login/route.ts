@@ -1,59 +1,50 @@
-
 import { NextResponse } from "next/server";
-import { findUserByUsername, verifyPassword } from "@/lib/excel/auth.service";
+import { authenticate } from "@/lib/auth/excel-auth";
+import { setSessionCookie } from "@/lib/auth/session";
+import { defaultRouteForRole } from "@/config/routes.config";
+import type { LoginType } from "@/types/user";
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try {
-    const body = await req.json();
-    const username = String(body?.username ?? "").trim();
+    const body = await request.json();
+
+    const loginType = String(body?.loginType ?? "Employee") as LoginType;
+    const identifier = String(body?.identifier ?? "").trim();
     const password = String(body?.password ?? "");
 
-    if (!username || !password) {
+    if (!identifier || !password) {
       return NextResponse.json(
-        { message: "Username and password are required" },
+        { message: "Missing credentials" },
         { status: 400 },
       );
     }
 
-    const user = await findUserByUsername(username);
+    const user = await authenticate({
+      loginType,
+      identifier,
+      password,
+    });
 
     if (!user) {
       return NextResponse.json(
-        { message: "User not found" },
-        { status: 404 },
-      );
-    }
-
-    if (!user.isActive) {
-      return NextResponse.json(
-        { message: "User is inactive" },
-        { status: 403 },
-      );
-    }
-
-    const valid = await verifyPassword(password, user.passwordHash);
-
-    if (!valid) {
-      return NextResponse.json(
-        { message: "Invalid credentials" },
+        { message: "Invalid username/code or password" },
         { status: 401 },
       );
     }
 
+    await setSessionCookie(user);
+
     return NextResponse.json({
       message: "Login successful",
-      user: {
-        id: user.id,
-        username: user.username,
-        role: user.role,
-      },
+      redirectTo: defaultRouteForRole(user.role, user.isManager),
+      user,
     });
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("Login service error:", error);
+
     return NextResponse.json(
-      { message: "Internal server error" },
+      { message: "Login service error" },
       { status: 500 },
     );
   }
 }
-

@@ -18,21 +18,34 @@ export function LoginForm({ locale }: { locale: string }) {
   const [pending, startTransition] = useTransition();
 
   function submit() {
-    setError("");
-    startTransition(async () => {
+  setError("");
+
+  startTransition(async () => {
+    try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ loginType, identifier, password, locale })
+        body: JSON.stringify({
+          loginType,
+          identifier,
+          password,
+          locale,
+        }),
       });
+
       const data = await response.json();
+
       if (!response.ok) {
         setError(data.message ?? "Login failed");
         return;
       }
-      router.replace(`/${locale}${data.redirectTo}`);
-    });
-  }
+
+      router.replace(`/${locale}${data.redirectTo ?? "/dashboard"}`);
+    } catch {
+      setError("Network error. Please try again.");
+    }
+  });
+}
 
   const isEmployee = loginType === "Employee";
 

@@ -1,17 +1,20 @@
-
-import ExcelJS from "exceljs";
 import path from "path";
+import ExcelJS from "exceljs";
 
-const EXCEL_FILE_PATH = path.join(process.cwd(), "data", "Data.xlsx");
+export const EXCEL_PATH = path.join(
+  process.cwd(),
+  "lib",
+  "data.xlsx"
+);
 
 export async function loadWorkbook() {
   const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.readFile(EXCEL_FILE_PATH);
+  await workbook.xlsx.readFile(EXCEL_PATH);
   return workbook;
 }
 
 export async function saveWorkbook(workbook: ExcelJS.Workbook) {
-  await workbook.xlsx.writeFile(EXCEL_FILE_PATH);
+  await workbook.xlsx.writeFile(EXCEL_PATH);
 }
 
 export function getSheetOrThrow(
@@ -21,7 +24,7 @@ export function getSheetOrThrow(
   const sheet = workbook.getWorksheet(sheetName);
 
   if (!sheet) {
-    throw new Error(`Sheet "${sheetName}" was not found in Data.xlsx`);
+    throw new Error(`Worksheet "${sheetName}" not found`);
   }
 
   return sheet;

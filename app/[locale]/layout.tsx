@@ -1,17 +1,18 @@
 import { dirForLocale, normalizeLocale } from "@/lib/i18n/locale";
+import type { ReactNode } from "react";
 
-export default async function LocaleLayout({
+export default function LocaleLayout({
   children,
-  params
+  params,
 }: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  children: ReactNode;
+  params: { locale: string };
 }) {
-  const { locale: localeParam } = await params;
-  const locale = normalizeLocale(localeParam);
+  const locale = normalizeLocale(params.locale);
+
   return (
-    <html lang={locale} dir={dirForLocale(locale)} suppressHydrationWarning>
-      <body>{children}</body>
-    </html>
+    <div lang={locale} dir={dirForLocale(locale)}>
+      {children}
+    </div>
   );
 }

@@ -18,7 +18,7 @@ export function AppShell({
   className?: string;
 }) {
   const t = getDictionary(locale);
-  const router = Router();
+  const router = useRouter();
   const isAr = locale === "ar";
 
   const nav = [
@@ -113,13 +113,4 @@ export function AppShell({
       </main>
     </div>
   );
-}
-
-// دالة مساعدة لتوفير useRouter لـ Next.js
-function Router() {
-  try {
-    return useRouter();
-  } catch {
-    return { push: () => {} };
-  }
 }
