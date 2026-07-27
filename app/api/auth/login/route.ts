@@ -1,50 +1,59 @@
+
 import { NextResponse } from "next/server";
-import { authenticate } from "@/lib/auth/login";
-import { setSessionCookie } from "@/lib/auth/session";
-import { defaultRouteForRole } from "@/config/routes.config";
-import type { LoginType, SafeSessionUser } from "@/types/user";
+import { findUserByUsername, verifyPassword } from "@/lib/excel/auth.service";
 
-
-const DEFAULT_ADMIN_USER: SafeSessionUser = {
-  userId: "admin-default-id",
-  role: "Admin",
-  loginType: "Admin",
-  username: "admin",
-  isManager: true,
-};
-
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const body = (await request.json()) as {
-      loginType?: LoginType;
-      identifier?: string;
-      password?: string;
-    };
+    const body = await req.json();
+    const username = String(body?.username ?? "").trim();
+    const password = String(body?.password ?? "");
 
-    if (!body.loginType || !body.identifier || !body.password) {
-      return NextResponse.json({ message: "Missing credentials" }, { status: 400 });
+    if (!username || !password) {
+      return NextResponse.json(
+        { message: "Username and password are required" },
+        { status: 400 },
+      );
     }
 
-    let user: SafeSessionUser | null = null;
-
-    if (body.identifier === "admin" && body.password === "admin") {
-      user = DEFAULT_ADMIN_USER;
-    } else {
-      user = await authenticate({
-        loginType: body.loginType,
-        identifier: body.identifier,
-        password: body.password,
-      });
-    }
+    const user = await findUserByUsername(username);
 
     if (!user) {
-      return NextResponse.json({ message: "Invalid username/code or password" }, { status: 401 });
+      return NextResponse.json(
+        { message: "User not found" },
+        { status: 404 },
+      );
     }
 
-    await setSessionCookie(user);
-    return NextResponse.json({ redirectTo: defaultRouteForRole(user.role, user.isManager) });
+    if (!user.isActive) {
+      return NextResponse.json(
+        { message: "User is inactive" },
+        { status: 403 },
+      );
+    }
+
+    const valid = await verifyPassword(password, user.passwordHash);
+
+    if (!valid) {
+      return NextResponse.json(
+        { message: "Invalid credentials" },
+        { status: 401 },
+      );
+    }
+
+    return NextResponse.json({
+      message: "Login successful",
+      user: {
+        id: user.id,
+        username: user.username,
+        role: user.role,
+      },
+    });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: "Login service error" }, { status: 500 });
+    console.error("Login error:", error);
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 },
+    );
   }
 }
+
