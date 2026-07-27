@@ -97,10 +97,8 @@ The application focuses on performance, scalability, user experience, and clean 
 | Frontend | Next.js 16, React, TypeScript |
 | Styling | Tailwind CSS |
 | Backend | Next.js API Routes |
-| ORM | Prisma |
-| Database | PostgreSQL |
+| Database | Excel |
 | Authentication | NextAuth |
-| Validation | Zod |
 | Forms | React Hook Form |
 | Localization | Next-Intl |
 
