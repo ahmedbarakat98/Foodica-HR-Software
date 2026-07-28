@@ -2,7 +2,15 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Users, CalendarDays, LayoutDashboard, Settings, UserMinus, LogOut } from "lucide-react";
+import {
+  Users,
+  UserPlus,
+  CalendarDays,
+  LayoutDashboard,
+  Settings,
+  UserMinus,
+  LogOut,
+} from "lucide-react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import Image from "next/image";
@@ -26,7 +34,8 @@ export function AppShell({
     { href: `/${locale}/employees/current`, label: t.currentEmployees, icon: Users },
     { href: `/${locale}/employees/former`, label: t.formerEmployees, icon: UserMinus },
     { href: `/${locale}/leaves`, label: t.leaves, icon: CalendarDays },
-    { href: `/${locale}/settings/fields`, label: t.settings, icon: Settings }
+    { href: `/${locale}/settings/fields`, label: t.settings, icon: Settings },
+    { href: `/${locale}/employees/add`, label: locale === "ar" ? "إضافة موظف" : "Add Employee",icon: UserPlus,},
   ];
 
   // دالة تسجيل الخروج
@@ -69,7 +78,7 @@ export function AppShell({
           </div>
 
           {/* عناصر التنقل Nav Links */}
-          <nav className="space-y-1.5">
+          <nav>
             {nav.map((item) => {
               const Icon = item.icon;
               return (
